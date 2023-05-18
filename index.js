@@ -28,8 +28,17 @@ app.get('/', (request, response) => {
     response.send('<h1>Hello world</h1>')
 })
 
-app.get('/api/persons', (request, response) => {
-    response.send(JSON.stringify(persons))
+app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const person = persons.find(person => person.id === id)
+
+    if (person) {
+        response.json(person)
+    } else {
+        response.status(404).end()
+    }
+
+    response.send(JSON.stringify(person))
 })
 
 app.get('/info', (request, response) => {
