@@ -24,8 +24,19 @@ let persons = [
     }
 ]
 
+app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(person => person.id !== id)
+
+    response.status(204).end()
+})
+
 app.get('/', (request, response) => {
     response.send('<h1>Hello world</h1>')
+})
+
+app.get('/api/persons', (request, response) => {
+   response.send(JSON.stringify(persons))
 })
 
 app.get('/api/persons/:id', (request, response) => {
